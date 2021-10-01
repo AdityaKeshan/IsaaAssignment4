@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Doc</title>
+</head>
+<body>
+    <form action="/view" method="post">
+    <label for="number">Enter your ID:</label><br>
+    <input type="text" name="id" >
+    <input type="submit" value="Submit">
+    </form>
+    <div>
+        <table>
+            <% for(let i in itemS){ %> 
+                <tr><td><%= i %></td> <td><%= itemS[i] %></td></tr>
+                <% } %>
+        </table>
+         
+    </div>
+</form>
+</body>
+</html>

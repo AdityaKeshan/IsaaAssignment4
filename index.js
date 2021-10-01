@@ -4,26 +4,18 @@ const app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 var mongoose = require("mongoose");
 const itemSchema = new mongoose.Schema({
   id: String,
-  name: String,
-  address: String,
-  phone: String,
-  aadhaar: String,
-  email: String,
-  password: String,
-  dob: String,
+  name: Array,
+  phone: Array,
+  email: Array,
+  password: Array,
+  dob: Array,
 });
 const Item = mongoose.model("Item", itemSchema);
-const item1 = new Item({
-  id: "123",
-  name: "String",
-  phone: "String",
-  email: "String",
-  password: "String",
-  dob: "String",
-});
+
 mongoose.connect("mongodb://localhost:27017/userDB", { useNewUrlParser: true });
 const p = 137;
 const q = 149;
@@ -59,11 +51,11 @@ function gcd(a, b) {
   }
   return gcd(b % a, a);
 }
-async function encrypt(p) {
-  val = await encryptString(p);
+function encrypt(p) {
+  val = encryptString(p);
   return val;
 }
-async function encryptString(p1) {
+function encryptString(p1) {
   var a = [];
   for (let i in p1) {
     s = p1.charCodeAt(i);
@@ -72,47 +64,32 @@ async function encryptString(p1) {
   }
   return a;
 }
-async function decryptString(p1)
-{
-  let a="";
-  for(let i in p1)
-  {
-    let k=parseInt(p1[i]);
-    let f=(BigInt(k) ** BigInt(d))%BigInt(n);
-    a=a+String.fromCharCode(parseInt(f));
+function decryptString(p1) {
+  let a = "";
+  for (let i in p1) {
+    let k = parseInt(p1[i]);
+    let f = BigInt(k) ** BigInt(d) % BigInt(n);
+    a = a + String.fromCharCode(parseInt(f));
   }
   return a;
 }
-async function getFromDb(id)
-{
-Item.findOne({id:id},function(err,its)
-{
-console.log(its);
-if(err)
-{
-  return -1;
+function getFromDb(id) {
+  
 }
-else
-{
-  const ans={id: id,
-    name: decryptString(its.name),
-    phone: decryptString(its.phone),
-    email: decryptString(its.email),
-    password: decryptString(its.password),
-    dob: decryptString(its.dob)};
-    return ans;
-}
-});
-}
-async function saveToDb(p) {
+function saveToDb(p) {
   let id = parseInt(Math.random() * 8999 + 1000);
+  let name = encrypt(p.name);
+  let phone = encrypt(p.phone);
+  let email = encrypt(p.email);
+  let password = encrypt(p.password);
+  let dob = encrypt(p.dob);
   const newItem = new Item({
     id: id,
-    name: encrypt(p.name),
-    phone: encrypt(p.phone),
-    email: encrypt(p.email),
-    password: encrypt(p.password),
-    dob: encrypt(p.dob)
+    name: name,
+    phone: phone,
+    email: email,
+    password: password,
+    dob: d,
   });
   newItem.save();
   return id;
@@ -122,24 +99,49 @@ app.listen(3000, function () {
 });
 
 app.get("/", function (req, res) {
-  val = encrypt("Aditya");
-  item1.save();
-  val.then((d1) => {
-    console.log(val);
-    res.send(d1);
-  });
+  res.render("index");
 });
-
-app.post("/", async function (req, res) {
-  let v = await saveToDb(req.body);
-  v.then(function (value) {
-    if(value>=1000)
-    {
-      res.send("Saved");
-    }
-    else
-    {
-      res.send("Error in Parameters");
+app.get("/view", function (req, res) {
+  res.render("view", { itemS: {} });
+});
+app.post("/view", async function (req, res) {
+  let id = req.body.id;
+  let its;
+  Item.findOne({ id: id }, function (err, its) {
+    if (err) {
+      return -1;
+    } else {
+      its = {
+        name: decryptString(its.name),
+        phone: decryptString(its.phone),
+        email: decryptString(its.email),
+        password: decryptString(its.password),
+        dob: decryptString(its.dob),
+      };
+      console.log(its);
+      res.render("view", { itemS: its });
     }
   });
+  
+});
+app.post("/", async function (req, res) {
+  console.log(req.body);
+  let v = saveToDb(req.body);
+  console.log(v);
+  if (v >= 1000) {
+    res.send("Saved!. Please Remember your id : " + v);
+  } else {
+    res.send("Error in Parameters");
+  }
+  // v.then(function (value) {
+  //   console.log(value);
+  //   if(value>=1000)
+  //   {
+  //     res.send("Saved");
+  //   }
+  //   else
+  //   {
+  //     res.send("Error in Parameters");
+  //   }
+  // });
 });
