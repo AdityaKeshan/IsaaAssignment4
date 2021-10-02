@@ -6,6 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/style.css">
     <title>Form to submit things!</title>
+    <script>
+        function validPhoneNumber(p)
+        {
+            var re=new RegExp('^[789]{1}[0-9]{9}$');
+            return re.exec(p);
+        }
+        function validEmail(email)
+        {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        
+        function val()
+        {
+            let name=document.forms[0][0].value;
+        let phone=document.forms[0][1].value;
+        let email=document.forms[0][2].value;
+        let password=document.forms[0][3].value;
+        let dob=document.forms[0][4].value;
+            if(name==null || name=='' )
+        {
+            alert("Enter a valid name");
+            return false;
+        }
+        else if(!validEmail(email))
+        {
+            alert("Enter a valid email");
+            return false;
+        }
+        else if(!validPhoneNumber(phone))
+        {
+            alert("Enter a valid number");
+            return false;
+        }
+        else if(password==null || password=='')
+        {
+            alert("Enter a valid password");
+            return false;
+        }
+        else if(dob=='' || dob==null)
+        {
+            alert("Select a dob");
+            return false;
+        }
+        else 
+        {
+           return true;
+        }
+        }
+    </script>
 </head>
 <body>
     <form action="/" method="post">
@@ -19,7 +69,7 @@
         <input type="password" name="password"><br><br>
         <label for="dob">Date of Birth</label>
         <input type="date" name="dob"><br><br>
-        <input type="submit" name="button" >
+        <input type="submit" name="Submit" type="button" onclick=" return val()" >
     </form>
     <br>
     <a href="/view" action="/view" method="get">View Existing Record</a>

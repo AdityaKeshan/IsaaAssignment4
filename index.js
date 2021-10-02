@@ -73,9 +73,6 @@ function decryptString(p1) {
   }
   return a;
 }
-function getFromDb(id) {
-  
-}
 function saveToDb(p) {
   let id = parseInt(Math.random() * 8999 + 1000);
   let name = encrypt(p.name);
