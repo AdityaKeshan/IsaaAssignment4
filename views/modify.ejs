@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title>Modify Doc</title>
 </head>
 <body>
     <div>
         <form method="POST" action=<%= "/modify/"+id %>>
-        <table>
-            <% for(let i in itemS){ a=true;%> 
-                <tr><td><%= i %></td> <td><input type="text" name=<%= i %> value= "<%= itemS[i] %>" > </td></tr>
-                <% } %>
-        </table>
+            <h1>Edit</h1>
+            <label class="heading">Name</label> <br>
+            <input  name="name" value=<%= itemS.name %>><br>
+            <label class="heading">Phone</label><br>
+            <input name="phone" value=<%= itemS.phone %> ><br>
+            <label class="heading">Email</label><br>
+            <input name="email" value=<%= itemS.email %>> <br>
+            <label class="heading">Password</label><br>
+            <input name="password" value=<%= itemS.password %> ><br>
+            <label class="heading">DoB</label><br>
+            <input name="dob" value=<%= itemS.dob %>> <br>
       
-            <input type="submit" value="Submit">
+            <input type="submit"class="submit" value="Submit">
         </form>
             
     </div>

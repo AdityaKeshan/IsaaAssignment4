@@ -4,25 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title>View Doc</title>
 </head>
 <body>
-    <% let a=false;%>
-    <form action="/view" method="post">
-    <label for="number">Enter your ID:</label><br>
-    <input type="text" name="id" >
-    <input type="submit" value="Submit">
-    </form>
     <div>
-        <table>
-            <% for(let i in itemS){ a=true;%> 
-                <tr><td><%= i %></td> <td><%= itemS[i] %></td></tr>
-                <% } %>
-        </table>
-         <% if(a==true) { %> <form action=<%= "/modify/"+id %> method="get">
-            <!-- <input type="hidden" name="id" value= <%= id %> style="{visibility:hidden}"> -->
-            <input type="submit" id="edit" value="Edit" ></form> <% } %>
+        <h1>
+            View Records
+        </h1>
+        <% let a=false;%>
+        <form action="/view" method="post">
+        
+        <input type="text" name="id" placeholder="Enter your ID" ><br>
+        <input type="submit" class="submit" value="Submit">
+        </form>
+            <div class="result">
+                <% if(itemS!=null){ a=true;
+                    %>
+                    <h2>Results</h2>
+                    <label class="heading">Name</label> <br>
+                    <label ><%= itemS.name %></label> <br>
+                    <label class="heading">Phone</label><br>
+                    <label ><%= itemS.phone %></label> <br>
+                    <label class="heading">Email</label><br>
+                    <label ><%= itemS.email %></label> <br>
+                    <label class="heading">Password</label><br>
+                    <label ><%= itemS.password %></label> <br>
+                    <label class="heading">DoB</label><br>
+                    <label ><%= itemS.dob %></label> 
+               <% } %>
+            </div>
+                 <% if(a==true) { %> <form action=<%= "/modify/"+id %> method="get">
+                    <input type="submit" id="edit" value="Edit" class="submit" ></form> <% } %>
+           
+           
+       
     </div>
+   
 </form>
 </body>
 </html>

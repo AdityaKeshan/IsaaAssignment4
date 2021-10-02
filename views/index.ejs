@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Form to submit things!</title>
     <script>
         function validPhoneNumber(p)
@@ -58,20 +58,20 @@
     </script>
 </head>
 <body>
-    <form action="/" method="post">
-        <label for="name">Name</label>
-        <input type="text" name="name"><br><br>
-        <label for="phone">Phone Number</label>
-        <input type="number" name="phone"><br><br>
-        <label for="email">Email</label>
-        <input type="email" name="email"><br><br>
-        <label for="password">Password</label>
-        <input type="password" name="password"><br><br>
-        <label for="dob">Date of Birth</label>
-        <input type="date" name="dob"><br><br>
-        <input type="submit" name="Submit" type="button" onclick=" return val()" >
-    </form>
-    <br>
-    <a href="/view" action="/view" method="get">View Existing Record</a>
+
+    <div>
+        <h1>Registration Form</h1>
+        <form action="/" method="post">   
+            <input type="text" name="name" placeholder="Enter your name"><br>
+            <input type="tel" name="phone" placeholder="Enter your number"><br>
+            <input type="email" name="email" placeholder="Enter your email id"><br>
+            <input type="password" name="password" placeholder="Enter your password"><br>
+            <input type="date" name="dob" placeholder="Enter a password"><br>
+            <input type="submit" class="submit" name="Submit" type="button" onclick=" return val()" >
+        </form>
+        <br>
+        <a href="/view" action="/view" method="get">View Existing Record</a>
+    </div>
+    
 </body>
 </html>

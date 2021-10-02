@@ -1,0 +1,54 @@
+body{
+    background-color: rgb(220,182,255);
+    font-family: "Raleway",sans-serif;
+    text-align: center;
+}
+div{
+    margin: 4%;
+    text-align: center;
+    align-items: center;
+}
+.result{
+    text-align: left;
+    width: 33%;
+    margin-left: 33%;
+    margin-top: 2%;
+}
+label{
+    text-align: left;
+    
+}
+.heading{
+    font-weight: bold;
+}
+table{
+    display: table;
+    width: 33%;
+    align-self: center;
+}
+input{
+    border-radius: 3px;
+    width: 33%;
+    height: 38px;
+    margin: 5px;
+    padding: 3px 7px;
+    font-size: 14px;
+}
+.submit{
+    width: 34.3%;
+    height: 40px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 3px;
+    margin: .7rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+a{
+    color: #000;
+    text-decoration: none;
+}
+a:hover{
+    color: purple;
+}
