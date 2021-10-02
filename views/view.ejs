@@ -7,6 +7,7 @@
     <title>View Doc</title>
 </head>
 <body>
+    <% let a=false;%>
     <form action="/view" method="post">
     <label for="number">Enter your ID:</label><br>
     <input type="text" name="id" >
@@ -14,11 +15,13 @@
     </form>
     <div>
         <table>
-            <% for(let i in itemS){ %> 
+            <% for(let i in itemS){ a=true;%> 
                 <tr><td><%= i %></td> <td><%= itemS[i] %></td></tr>
                 <% } %>
         </table>
-         
+         <% if(a==true) { %> <form action=<%= "/modify/"+id %> method="get">
+            <!-- <input type="hidden" name="id" value= <%= id %> style="{visibility:hidden}"> -->
+            <input type="submit" id="edit" value="Edit" ></form> <% } %>
     </div>
 </form>
 </body>

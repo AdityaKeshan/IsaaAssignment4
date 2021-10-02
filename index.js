@@ -89,7 +89,7 @@ function saveToDb(p) {
     phone: phone,
     email: email,
     password: password,
-    dob: d,
+    dob: dob,
   });
   newItem.save();
   return id;
@@ -103,6 +103,50 @@ app.get("/", function (req, res) {
 });
 app.get("/view", function (req, res) {
   res.render("view", { itemS: {} });
+});
+app.get("/modify/:id",function(req, res)
+{
+let id=req.params.id;
+let its;
+  Item.findOne({ id: id }, function (err, its) {
+    if (err) {
+      return -1;
+    } else {
+      its = {
+        name: decryptString(its.name),
+        phone: decryptString(its.phone),
+        email: decryptString(its.email),
+        password: decryptString(its.password),
+        dob: decryptString(its.dob),
+      };
+      console.log(its);
+      res.render("modify", { itemS: its,id:id });
+    }
+  });
+});
+app.post("/modify/:id",function(req, res)
+{
+  let id=req.params.id;
+  console.log(req.body);
+  let name = encrypt(req.body.name);
+  let phone = encrypt(req.body.phone);
+  let email = encrypt(req.body.email);
+  let password = encrypt(req.body.password);
+  let dob = encrypt(req.body.dob);
+  Item.updateOne({ "id": id },{
+    "id": id,
+    "name": name,
+    "phone": phone,
+    "email": email,
+    "password": password,
+    "dob": dob,
+  } ,function (err, its) {
+    if (err) {
+      res.render("result",{title:"Not Successful!!"})
+    } else {
+      res.render("result",{title:"Successful!!"});
+    }
+  });
 });
 app.post("/view", async function (req, res) {
   let id = req.body.id;
@@ -119,7 +163,7 @@ app.post("/view", async function (req, res) {
         dob: decryptString(its.dob),
       };
       console.log(its);
-      res.render("view", { itemS: its });
+      res.render("view", { itemS: its,id:id });
     }
   });
   
@@ -133,15 +177,5 @@ app.post("/", async function (req, res) {
   } else {
     res.send("Error in Parameters");
   }
-  // v.then(function (value) {
-  //   console.log(value);
-  //   if(value>=1000)
-  //   {
-  //     res.send("Saved");
-  //   }
-  //   else
-  //   {
-  //     res.send("Error in Parameters");
-  //   }
-  // });
+  
 });
