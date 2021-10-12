@@ -99,7 +99,7 @@ app.get("/", function (req, res) {
   res.render("index");
 });
 app.get("/view", function (req, res) {
-  res.render("view", { itemS: {} });
+  res.render("view", { itemS: {} ,id:""});
 });
 app.get("/modify/:id",function(req, res)
 {
