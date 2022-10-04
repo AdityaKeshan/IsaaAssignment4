@@ -16,4 +16,4 @@
 2) /view --- View Record Page
 3) /modify/<id> --- Modify a record
   
-### Give this Repo a star if you liked it
+### Give this Repo a star if you like it
